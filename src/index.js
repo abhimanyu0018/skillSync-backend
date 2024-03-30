@@ -2,12 +2,14 @@
 import dotenv from "dotenv"
 import connectDB from "./db/index.js";
 import app from "./app.js";
-
+import router from "./routes/user.js";
 dotenv.config(
     {
         path: "./env"
     }
 )
+
+
 
 connectDB()
 .then(() => {
@@ -18,3 +20,6 @@ connectDB()
 .catch((error) => {
     console.log("Database connection failed !!!", error);
 })
+
+//routes
+app.use('/api/user',router)
