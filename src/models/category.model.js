@@ -6,9 +6,10 @@ const categorySchema = mongoose.Schema({
     }
 })
 
+// to add new category in DB
 categorySchema.statics.addCategory = async function(name){
     if(!name) {
-        throw Error('field nust be filled')
+        throw Error('field must be filled')
     }
 
     const existedCategory = await this.findOne({ name })
@@ -22,10 +23,11 @@ categorySchema.statics.addCategory = async function(name){
     return category
 }
 
+// to get all categories in a array
 categorySchema.statics.getAllCategory = async function() {
     const categories = await this.find({}, 'name'); // Retrieves only the 'name' field
     return categories.map(category => category.name);
-    // return categories; 
+ 
 }
 
 

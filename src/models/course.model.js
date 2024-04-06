@@ -20,16 +20,16 @@ const courseSchema = new mongoose.Schema(
         },
         category: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: Category
+            ref: "Category"
         },
         instructor: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: User
+            ref: "User"
         },
         enrolledStudents: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: User
+                ref: "User"
             }
         ],
         isComplete: {
