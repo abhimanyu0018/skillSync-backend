@@ -19,8 +19,9 @@ const courseSchema = new mongoose.Schema(
             require: true
         },
         category: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Category"
+            type: String,
+            require: true
+            // ref: "Category"
         },
         instructor: {
             type: mongoose.Schema.Types.ObjectId,
@@ -39,5 +40,10 @@ const courseSchema = new mongoose.Schema(
     },
     {timestamps: true}
 )
+
+// static create course method
+// courseSchema.statics.createCourse = async function() {
+
+// }
 
 export const Course = mongoose.model("Course",courseSchema)
