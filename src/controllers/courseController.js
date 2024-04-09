@@ -1,6 +1,7 @@
 import asyncHandler from "../utils/asyncHandler.js"
 import {Course} from "../models/course.model.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { User } from "../models/user.model.js";
 
 
 
@@ -8,6 +9,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 //course Controller 
 
+// controller for creating course
 export const createCourse = async (req, res) => {
     try {
         const { name, desc, price, category } = req.body;
@@ -34,6 +36,9 @@ export const createCourse = async (req, res) => {
         });
 
         await course.save();
+
+        // Update the user's courses array
+        await User.findByIdAndUpdate(instructor._id, { $push: { courses: course._id } });
 
         return res.status(201).json(course);
     } catch (error) {
@@ -62,3 +67,34 @@ const uploadThumbnail = async (file) => {
         throw error;
     }
 };
+
+
+// controller for fetch user courses 
+export const getMyCourse = async (req,res) => {
+    try {
+        const user = req.user;
+        console.log(user)
+
+        if (!user) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+
+        let courses;
+
+        if (user.role === 'student') {
+            // If user is a student, fetch courses they are enrolled in
+            courses = await User.findById(user._id).populate('courses');
+        } else if (user.role === 'instructor') {
+            // If user is an instructor, fetch courses they have created
+            courses = await Course.find({ instructor: user._id });
+        } else {
+            // Invalid user role
+            return res.status(400).json({ error: "Invalid user role" });
+        }
+
+        res.json({ courses });
+    } catch (error) {
+        console.error("Error fetching courses:", error);
+        res.status(500).json({ error: "Server error" });
+    }
+}

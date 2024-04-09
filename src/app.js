@@ -31,6 +31,6 @@ app.use('/api/',categoryRouter)
 
 //course routes 
 import courseRouter from "./routes/course.js";
-app.use('/api/user/course',courseRouter)
+app.use('/api/user/dashboard',courseRouter)
 
 export default app;

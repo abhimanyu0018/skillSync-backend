@@ -1,5 +1,5 @@
 import express from "express";
-import { createCourse } from "../controllers/courseController.js";
+import { createCourse, getMyCourse } from "../controllers/courseController.js";
 import { upload } from "../middlewares/multer.js"
 import  requireAuth  from "../middlewares/requireAuth.js"
 
@@ -11,7 +11,8 @@ courseRouter.post('/createCourse',
 upload.single('thumbnail'),
 createCourse )
 
-
+// router for - get user courses 
+courseRouter.get('/', getMyCourse)
 
 
 export default courseRouter
