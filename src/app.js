@@ -33,4 +33,8 @@ app.use('/api/',categoryRouter)
 import courseRouter from "./routes/course.js";
 app.use('/api/user/dashboard',courseRouter)
 
+// profile routes 
+import profileRouter from "./routes/profile.js";
+app.use('/api/user/dashboard/profile' , profileRouter )
+
 export default app;

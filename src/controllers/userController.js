@@ -1,5 +1,7 @@
 import asyncHandler from "../utils/asyncHandler.js"
 import { User } from "../models/user.model.js"
+import { Profile } from "../models/profile.model.js"; 
+
 import jwt from "jsonwebtoken"
 
 
@@ -36,6 +38,13 @@ export const signupUser = asyncHandler( async (req,res) => {
 
     try {
         const user = await User.signup(firstName, lastName, email, password, role)
+
+         // Create Profile for the user
+         const profile = await Profile.create({});
+
+         // Update user's profile reference
+         user.profile = profile._id;
+         await user.save();
 
         //create Token
         const token = createToken(user._id)
