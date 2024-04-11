@@ -1,5 +1,6 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import { Category } from "../models/category.model.js";
+import { Course } from "../models/course.model.js";
 
 
 
@@ -21,10 +22,13 @@ export const addCategory = asyncHandler( async (req,res) => {
 
 // get all category form db 
 
-export const getAllCategory = asyncHandler( async (req,res) => {
+export const getAllCategoryAndCourse = asyncHandler( async (req,res) => {
     try {
         const categories = await Category.getAllCategory()
-        res.status(200).json(categories)
+
+        const courses = await Course.find({}) 
+        // console.log(courses)
+        res.status(200).json({ categories: categories, courses: courses })
     } catch (error) {
         res.status(400).json({
             error: error.message
