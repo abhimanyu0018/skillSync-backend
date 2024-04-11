@@ -72,7 +72,7 @@ const uploadThumbnail = async (file) => {
 export const getMyCourse = async (req,res) => {
     try {
         const user = req.user;
-        console.log(user)
+        // console.log(user)
 
         if (!user) {
             return res.status(401).json({ error: "Unauthorized" });
@@ -95,5 +95,25 @@ export const getMyCourse = async (req,res) => {
     } catch (error) {
         console.error("Error fetching courses:", error);
         res.status(500).json({ error: "Server error" });
+    }
+}
+
+//controller for return user info for specific course 
+export const getInstructerInfo = async (req,res) => {
+    const { courseID } = req.body
+
+    try {
+        const course = await Course.findById(courseID).populate('instructor');
+
+        // Extract the instructor details 
+        let instructorDetails = course.instructor.toObject(); 
+        
+        delete instructorDetails.password; 
+        
+
+       
+        res.status(200).json( instructorDetails );
+    } catch (error) {
+        res.status(500).json({ error: error.message })
     }
 }

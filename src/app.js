@@ -37,4 +37,9 @@ app.use('/api/user/dashboard',courseRouter)
 import profileRouter from "./routes/profile.js";
 app.use('/api/user/dashboard/profile' , profileRouter )
 
+
+//get instructor details route
+import instructorRouter from "./routes/instructor.js";
+app.use('/api/course/info', instructorRouter )
+
 export default app;

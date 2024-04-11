@@ -1,6 +1,7 @@
 import express from "express";
 import { addCategory,getAllCategoryAndCourse } from "../controllers/categoryController.js";
 
+
 const categoryRouter = express.Router();
 
 // router for -  add category 
