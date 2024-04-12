@@ -1,6 +1,7 @@
 import {Course} from "../models/course.model.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { User } from "../models/user.model.js";
+import { Profile } from "../models/profile.model.js"
 
 
 
@@ -98,26 +99,33 @@ export const getMyCourse = async (req,res) => {
     }
 }
 
-//controller for return user info for specific course 
-export const getInstructerInfo = async (req,res) => {
-    const { courseID } = req.body
+
+
+export const getInstructerInfo = async (req, res) => {
+    const { courseID } = req.body;
 
     try {
-        const course = await Course.findById(courseID).populate('instructor');
- 
-        // console.log(course)
-        // Extract the instructor details 
-        // let instructorDetails = course.instructor.toObject(); 
-        
-        // delete instructorDetails.password; 
-        
+        const course = await Course.findById(courseID)
+            .populate({
+                path: 'instructor',
+                populate: {
+                    path: 'profile',
+                    model: 'Profile',
+                    select: 'gender dob about'
+                }
+            });
+
+        if (!course) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+
+        // Remove the password 
         if (course && course.instructor) {
             course.instructor.password = undefined;
         }
 
-       
-        res.status(200).json( course );
+        res.status(200).json(course);
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: error.message });
     }
-}
+};
