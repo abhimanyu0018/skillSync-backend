@@ -104,15 +104,18 @@ export const getInstructerInfo = async (req,res) => {
 
     try {
         const course = await Course.findById(courseID).populate('instructor');
-
+ 
+        // console.log(course)
         // Extract the instructor details 
-        let instructorDetails = course.instructor.toObject(); 
+        // let instructorDetails = course.instructor.toObject(); 
         
-        delete instructorDetails.password; 
-        
+        // delete instructorDetails.password; 
+        if (course && course.instructor) {
+            course.instructor.password = undefined;
+        }
 
        
-        res.status(200).json( instructorDetails );
+        res.status(200).json( course );
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
