@@ -110,6 +110,7 @@ export const getInstructerInfo = async (req,res) => {
         // let instructorDetails = course.instructor.toObject(); 
         
         // delete instructorDetails.password; 
+        
         if (course && course.instructor) {
             course.instructor.password = undefined;
         }
