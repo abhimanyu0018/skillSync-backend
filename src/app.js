@@ -42,4 +42,8 @@ app.use('/api/user/dashboard/profile' , profileRouter )
 import instructorRouter from "./routes/instructor.js";
 app.use('/api/course/info', instructorRouter )
 
+//payment route
+import paymentRouter from "./routes/payment.js";
+app.use('/api/enroll', paymentRouter )
+
 export default app;
