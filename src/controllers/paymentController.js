@@ -11,9 +11,9 @@ export const createCheckoutSession = async (req, res) => {
                     price_data: {
                         currency: 'inr',
                         product_data: {
-                            name: 'Course-Name', // You can customize this based on your product
+                            name: 'Course-Name', // we  can customize this based on course
                         },
-                        unit_amount: 500, // You can customize the amount based on your product
+                        unit_amount: 500, //  customize the amount based on course price
                     },
                     quantity: 1,
                 },
