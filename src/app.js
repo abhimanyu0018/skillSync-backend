@@ -43,7 +43,7 @@ import instructorRouter from "./routes/instructor.js";
 app.use('/api/course/info', instructorRouter )
 
 //payment route
-import paymentRouter from "./routes/payment.js";
-app.use('/api/enroll', paymentRouter )
+import paymentRoutes from "./routes/payment.js";
+app.use("/api/enroll", paymentRoutes);
 
 export default app;

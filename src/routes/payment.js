@@ -1,18 +1,14 @@
 import express from "express";
 import  requireAuth  from "../middlewares/requireAuth.js"
-import  createCheckoutSession from "../controllers/paymentController.js"
+import { checkout, paymentVerification, getKey} from "../controllers/paymentController.js";
 
-const paymentRouter = express.Router()
-
+const paymentRouter = express.Router();
 paymentRouter.use(requireAuth)
 
 
-paymentRouter.post('/create-checkout-session', createCheckoutSession );
-  
 
+paymentRouter.post("/checkout", checkout);
+paymentRouter.post("/paymentverification", paymentVerification);
+paymentRouter.get("/getkey", getKey);
 
-
-
-
-
-export default paymentRouter
+export default paymentRouter;
