@@ -47,7 +47,7 @@ export const paymentVerification = async (req, res) => {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-      name: userId,
+      user: userId,
       course: courseId
     };
 
