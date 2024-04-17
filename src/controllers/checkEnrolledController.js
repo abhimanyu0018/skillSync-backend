@@ -1,7 +1,7 @@
 // Middleware to check if the user is already enrolled in the course
 import { User } from "../models/user.model.js";
 
-const checkEnrollment = async (req, res, next) => {
+export const checkEnrollment = async (req, res) => {
     try {
       const userId = req.user._id;
       const { courseId } = req.body; 
@@ -17,8 +17,8 @@ const checkEnrollment = async (req, res, next) => {
       }
   
       // If not enrolled, proceed to the next 
-      next();
-      
+      res.status().json({success: true, message: "can proceed to payment"});
+
     } catch (error) {
       console.error("Error checking enrollment:", error);
       res.status(500).json({ success: false, error: "Internal server error" });
@@ -26,5 +26,4 @@ const checkEnrollment = async (req, res, next) => {
   };
   
 
-  export default checkEnrollment;
   

@@ -42,12 +42,19 @@ app.use('/api/user/dashboard/profile' , profileRouter )
 import instructorRouter from "./routes/instructor.js";
 app.use('/api/course/info', instructorRouter )
 
+
+//check enroll route
+import checkEnrollRouter from "./routes/checkEnroll.js"
+app.use("/api/user/check", checkEnrollRouter )
+
 //payment route
 import paymentRoutes from "./routes/payment.js";
 app.use("/api/enroll", paymentRoutes);
 
+
+
 // invoice route 
 import invoiceRouter from "./routes/invoice.js";
-app.use("/api/user/invoice", instructorRouter )
+app.use("/api/user/invoice", invoiceRouter )
 
 export default app;
