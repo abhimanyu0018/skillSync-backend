@@ -16,12 +16,13 @@ export const checkEnrollment = async (req, res) => {
         return res.status(400).json({ success: false, error: "User is already enrolled in this course." });
       }
   
-      // If not enrolled, proceed to the next 
-      res.status().json({success: true, message: "can proceed to payment"});
+      // If not enrolled, proceed to the next
+      else 
+      res.status(200).json({success: true, message: "can proceed to payment"});
 
     } catch (error) {
       console.error("Error checking enrollment:", error);
-      res.status(500).json({ success: false, error: "Internal server error" });
+      res.status(500).json({ success: false, error: error.message });
     }
   };
   
