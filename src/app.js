@@ -52,9 +52,12 @@ import paymentRoutes from "./routes/payment.js";
 app.use("/api/enroll", paymentRoutes);
 
 
-
 // invoice route 
 import invoiceRouter from "./routes/invoice.js";
 app.use("/api/user/invoice", invoiceRouter )
 
+
+// live class route
+import liveClassRouter from "./routes/liveClass.js";
+app.use("/api/user/live", liveClassRouter)
 export default app;

@@ -36,6 +36,10 @@ const courseSchema = new mongoose.Schema(
         isComplete: {
             type: Boolean,
             default: false,
+        },
+        liveCode: {
+            type: String,
+            default: "none"
         }
     },
     {timestamps: true}
