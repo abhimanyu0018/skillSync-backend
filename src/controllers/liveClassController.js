@@ -10,7 +10,7 @@ export const startLiveSession = async (req, res) => {
         if (req.user.role !== 'instructor') {
             return res.status(403).json({ success: false, message: "You are not authorized to start the live session" });
         }
-
+          console.log(courseId)
         // Check if the course exists
         const course = await Course.findById(courseId);
         if (!course) {
