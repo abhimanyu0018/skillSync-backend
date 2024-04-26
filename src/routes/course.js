@@ -1,5 +1,5 @@
 import express from "express";
-import { createCourse, deleteCourse, getMyCourse } from "../controllers/courseController.js";
+import { createCourse, deleteCourse, getMyCourse, updateCourse } from "../controllers/courseController.js";
 import { upload } from "../middlewares/multer.js"
 import  requireAuth  from "../middlewares/requireAuth.js"
 
@@ -18,5 +18,8 @@ courseRouter.get('/', getMyCourse)
 //router for - delete course
 courseRouter.post('/deleteCourse', deleteCourse)
 
+
+//router for - edit / undate 
+courseRouter.post('/undateCourse', updateCourse )
 
 export default courseRouter

@@ -159,3 +159,40 @@ export const deleteCourse = async (req, res) => {
       return res.status(500).json({ error: error.message });
     }
   };
+
+
+  
+// update a course
+
+export const updateCourse = async (req, res) => {
+   
+   const { courseId , name, desc } = req.body;
+   const userId = req.user._id; 
+
+  try {
+    // Find and update the course by ID
+    const updatedCourse = await Course.findByIdAndUpdate(
+      courseId,
+      {
+        name,
+        desc
+      },
+      { new: true } // Returns the updated document
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    
+    if (updatedCourse.instructor.toString() !== userId) {
+      return res.status(403).json({ message: "You are not authorized to edit this course" });
+    }
+
+    // Return the updated course
+    return res.status(200).json({ message: "Course updated successfully", course: updatedCourse });
+  } catch (error) {
+    console.error("Error updating course:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
