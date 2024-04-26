@@ -129,3 +129,33 @@ export const getInstructerInfo = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+// controller for deleting course 
+
+export const deleteCourse = async (req, res) => {
+    try {
+      const {courseId} = req.body 
+      const userId = req.user._id
+      
+      // Find the course by ID
+      const course = await Course.findById(courseId);
+      
+      if (!course) {
+        return res.status(404).json({ message: "Course not found" });
+      }
+      
+      
+      if (course.instructor.toString() !== userId) {
+        return res.status(403).json({ message: "You are not authorized to delete this course" });
+      }
+      
+      // Delete the course
+      const deletedCourse = await Course.findByIdAndDelete(courseId);
+      
+      // Return success message
+      return res.status(200).json({ message: "Course deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting course:", error);
+      return res.status(500).json({ error: error.message });
+    }
+  };
