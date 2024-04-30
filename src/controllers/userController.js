@@ -20,7 +20,7 @@ export const loginUser = async (req,res) => {
         //create Token
         const token = createToken(user._id)
         
-        res.status(200).json({email,role: user.role, token})
+        res.status(200).json({email,role: user.role,firstName: user.firstName,lastName: user.lastName, token})
 
     } catch (error) {
 
@@ -49,7 +49,7 @@ export const signupUser = asyncHandler( async (req,res) => {
         //create Token
         const token = createToken(user._id)
 
-        res.status(200).json({email,role: user.role, token})
+        res.status(200).json({email,role: user.role,firstName: user.firstName,lastName: user.lastName, token})
     } catch (error) {
         res.status(400).json({
             error: error.message
