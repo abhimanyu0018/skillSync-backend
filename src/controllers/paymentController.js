@@ -66,7 +66,7 @@ export const paymentVerification = async (req, res) => {
       throw new Error("Failed to update course's enrolled students.");
     }
 
-    res.redirect(`http://localhost:5173/paymentDone?reference=${razorpay_payment_id}`);
+    res.redirect(`http://localhost:3000/paymentDone?reference=${razorpay_payment_id}`);
   } catch (error) {
     console.error("Error during payment verification:", error);
     res.status(400).json({ success: false, error: error.message });

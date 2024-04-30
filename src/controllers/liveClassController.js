@@ -23,9 +23,9 @@ export const startLiveSession = async (req, res) => {
         course.liveCode = roomCode;
         await course.save();
 
-         // Send notification email to enrolled students
-         const enrolledStudentsEmails = await getEnrolledStudentsEmails(course);
-         await sendNotificationEmail(enrolledStudentsEmails, notificationMessage);
+        //  // Send notification email to enrolled students
+        //  const enrolledStudentsEmails = await getEnrolledStudentsEmails(course);
+        //  await sendNotificationEmail(enrolledStudentsEmails, notificationMessage);
 
         return res.status(200).json({ success: true, course });
     } catch (error) {
@@ -39,29 +39,34 @@ const sendNotificationEmail = async (enrolledStudentsEmails, notificationMessage
     // Set up Nodemailer transporter
     const transporter = nodemailer.createTransport({
         service: 'gmail',
+        host: process.env.MAIL_HOST,
+        port: 587,
+        secure: false,
         auth: {
-            user: 'skillsync000@gmail.com', 
-            pass: 'skillsyncAbhi18@' 
+            user:process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS, 
         }
     });
 
     // Set up email options
     const mailOptions = {
-        from: 'skillsync000@gmail.com', // Sender address
-        to: enrolledStudentsEmails.join(', '), // Receiver addresses (enrolled students)
+        from: `SkillSync`, // Sender address
+        to: 'asrijan889@gmail.com', // Receiver addresses (enrolled students)
         subject: 'Notification: Live Session Started', // Email subject
-        text: notificationMessage // Plain text body of the email
-        // You can also add HTML content if you want: html: '<h1>Hello</h1>'
+        text: notificationMessage, // Plain text body of the email
+        html: `<h1>hii</h1>`
     };
 
     // Send email
-    transporter.sendMail(mailOptions, (error, info) => {
+    const info = transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error('Error sending email:', error);
         } else {
             console.log('Notification email sent:', info.response);
         }
     });
+
+    console.log(info);
 };
 
 // Helper function to get enrolled students' email addresses

@@ -13,7 +13,7 @@ liveClassRouter.post("/go-live", startLiveSession )
 liveClassRouter.post("/end-live", endLiveSession )
 
 // route for get live code
-liveClassRouter.get("/live-code", getLiveCode )
+liveClassRouter.post("/live-code", getLiveCode )
 
 
 export default liveClassRouter;

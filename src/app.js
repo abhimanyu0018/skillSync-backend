@@ -60,4 +60,9 @@ app.use("/api/user/invoice", invoiceRouter )
 // live class route
 import liveClassRouter from "./routes/liveClass.js";
 app.use("/api/user/live", liveClassRouter)
+
+// notification 
+import notificationRouter from "./routes/notification.js";
+app.use("/api/user/notification", notificationRouter)
+
 export default app;
